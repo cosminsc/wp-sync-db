@@ -510,7 +510,7 @@ class WPSDB extends WPSDB_Base {
 			$data['location'] = home_url();
 			$data['temp_prefix'] = $this->temp_prefix;
 			$data['sig'] = $this->create_signature( $data, $data['key'] );
-			$ajax_url = trailingslashit( $_POST['url'] ) . 'wp-admin/admin-ajax.php';
+			$ajax_url = trailingslashit( $_POST['url'] ) . $GLOBALS['wpsdb_wp_admin'].'/admin-ajax.php';
 			$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
 			ob_start();
 			echo $response;
@@ -587,7 +587,7 @@ class WPSDB extends WPSDB_Base {
 			$data['action'] = 'wpsdb_fire_migration_complete';
 			$data['url'] = home_url();
 			$data['sig'] = $this->create_signature( $data, $_POST['key'] );
-			$ajax_url = trailingslashit( $_POST['url'] ) . 'wp-admin/admin-ajax.php';
+			$ajax_url = trailingslashit( $_POST['url'] ) . $GLOBALS['wpsdb_wp_admin'].'/admin-ajax.php';
 			$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
 			ob_start();
 			echo $response;
@@ -692,7 +692,7 @@ class WPSDB extends WPSDB_Base {
 				}
 				$data['action'] = 'wpsdb_backup_remote_table';
 				$data['intent'] = 'pull';
-				$ajax_url = trailingslashit( $_POST['url'] ) . 'wp-admin/admin-ajax.php';
+				$ajax_url = trailingslashit( $_POST['url'] ) . $GLOBALS['wpsdb_wp_admin'].'/admin-ajax.php';
 				$data['primary_keys'] = stripslashes( $data['primary_keys'] );
 				$data['sig'] = $this->create_signature( $data, $data['key'] );
 				$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
@@ -752,7 +752,7 @@ class WPSDB extends WPSDB_Base {
 			if ( isset( $data['sig'] ) ) {
 				unset( $data['sig'] );
 			}
-			$ajax_url = trailingslashit( $data['url'] ) . 'wp-admin/admin-ajax.php';
+			$ajax_url = trailingslashit( $data['url'] ) . $GLOBALS['wpsdb_wp_admin'].'/admin-ajax.php';
 			$data['primary_keys'] = stripslashes( $data['primary_keys'] );
 			$data['sig'] = $this->create_signature( $data, $data['key'] );
 
@@ -911,7 +911,7 @@ class WPSDB extends WPSDB_Base {
 			);
 
 			$data['sig'] = $this->create_signature( $data, $_POST['key'] );
-			$ajax_url = trailingslashit( $_POST['url'] ) . 'wp-admin/admin-ajax.php';
+			$ajax_url = trailingslashit( $_POST['url'] ) . $GLOBALS['wpsdb_wp_admin'].'/admin-ajax.php';
 			$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
 
 			if ( false === $response ) {
@@ -1071,7 +1071,7 @@ class WPSDB extends WPSDB_Base {
 		);
 
 		$data['sig'] = $this->create_signature( $data, $_POST['key'] );
-		$ajax_url = trailingslashit( $_POST['url'] ) . 'wp-admin/admin-ajax.php';
+		$ajax_url = trailingslashit( $_POST['url'] ) . $GLOBALS['wpsdb_wp_admin'].'/admin-ajax.php';
 		$timeout = apply_filters( 'wpsdb_prepare_remote_connection_timeout', 10 );
 		$response = $this->remote_post( $ajax_url, $data, __FUNCTION__, compact( 'timeout' ), true );
 		$url_bits = parse_url( $this->attempting_to_connect_to );
@@ -2118,7 +2118,7 @@ class WPSDB extends WPSDB_Base {
 
 		$data['sig'] = $this->create_signature( $data, $_POST['key'] );
 
-		$ajax_url = trailingslashit( $this->remote_url ) . 'wp-admin/admin-ajax.php';
+		$ajax_url = trailingslashit( $this->remote_url ) . $GLOBALS['wpsdb_wp_admin'].'/admin-ajax.php';
 		$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
 		ob_start();
 		$this->display_errors();
@@ -2445,7 +2445,7 @@ class WPSDB extends WPSDB_Base {
 				$data = $_POST;
 				$data['action'] = 'wpsdb_process_push_migration_cancellation';
 				$data['temp_prefix'] = $this->temp_prefix;
-				$ajax_url = trailingslashit( $data['url'] ) . 'wp-admin/admin-ajax.php';
+				$ajax_url = trailingslashit( $data['url'] ) . $GLOBALS['wpsdb_wp_admin'].'/admin-ajax.php';
 				$data['sig'] = $this->create_signature( $data, $data['key'] );
 
 				$response = $this->remote_post( $ajax_url, $data, __FUNCTION__ );
